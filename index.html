@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A story</title>
+    <style>
+        :root { --bg-color: #0d0d0d; --red-accent: #a00; }
+
+        body {
+            background-color: var(--bg-color);
+            color: #b0b0b0;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 60px 20px;
+            overflow-x: hidden;
+            background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+            transition: background-color 0.4s ease;
+        }
+
+        /* Blinding Effect */
+        body.blinding {
+            background-color: #ffffff !important;
+            background-image: none;
+        }
+        body.blinding .container { border-color: #ddd; box-shadow: 0 0 100px #fff; }
+        body.blinding #story-display { color: #aaa; }
+
+        .container {
+            max-width: 750px;
+            background: rgba(15, 15, 15, 0.95);
+            padding: 60px;
+            border: 1px solid #222;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 40px #000;
+        }
+
+        /* Red Title Update */
+        h1 { 
+            font-size: 1.8rem; 
+            text-transform: uppercase; 
+            letter-spacing: 4px; 
+            color: var(--red-accent); 
+            margin-bottom: 40px; 
+            text-shadow: 2px 2px 10px rgba(170, 0, 0, 0.3);
+        }
+
+        #story-display { line-height: 1.9; font-size: 1.1rem; white-space: pre-wrap; }
+
+        .sock-highlight { 
+            color: var(--red-accent); 
+            font-weight: bold; 
+            display: inline-block;
+        }
+
+        .jitter { animation: jitter-anim 0.3s infinite ease-in-out; }
+
+        @keyframes jitter-anim {
+            0% { transform: translate(0,0); }
+            25% { transform: translate(0.5px, -0.5px); }
+            50% { transform: translate(-0.5px, 0.5px); }
+            75% { transform: translate(0.5px, 0.5px); }
+            100% { transform: translate(0,0); }
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2rem;
+            background-color: #fff;
+            animation: blink 0.8s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Animated Start Screen */
+        .overlay-start {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: black;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: pointer;
+        }
+
+        .start-text {
+            animation: breathe 3s infinite ease-in-out;
+            transition: color 0.3s;
+        }
+
+        .overlay-start:hover .start-text {
+            color: var(--red-accent);
+        }
+
+        @keyframes breathe {
+            0%, 100% { opacity: 0.3; transform: scale(0.98); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+
+        .ui-btn {
+            position: fixed;
+            background: #111;
+            border: 1px solid #333;
+            color: #444;
+            padding: 8px 12px;
+            font-family: inherit;
+            cursor: pointer;
+            z-index: 20;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+
+        #skip-btn { bottom: 20px; right: 20px; display: none; }
+        #mute-btn { bottom: 20px; left: 20px; }
+        .ui-btn:hover { color: #fff; border-color: #666; }
+    </style>
+</head>
+<body>
+
+    <div class="overlay-start" id="start-btn">
+        <span class="start-text">Click to read a story</span>
+    </div>
+
+    <button class="ui-btn" id="mute-btn">Sound: On</button>
+    <button class="ui-btn" id="skip-btn">Instant Load</button>
+
+    <div class="container">
+        <h1>A story</h1>
+        <div id="story-display"></div><span class="cursor" id="typing-cursor"></span>
+    </div>
+
+    <script>
+        const storyText = `I am slouched on my bed, as my laptop is balanced precariously on a pillow; the screen on my laptop is blinding me. “Write something, you coward,” my brain screams while I try to think of all the possible stories I could write for this assignment. I look around myself. My room’s a disaster with empty coffee mugs, a notebook full of dumb scribbles, and a random {RED SOCK} that’s been lying on top of my lamp. 
+
+As I stare at my screen, out of nowhere, I get this idea: what if I write a story about writing this story? Wild, right? “Yeah, wow, how could I even think of such a cool thing that has never been done before?” my mind mocks me, dripping with sarcasm sooo thick that it could choke me. Well, my special talent’s not writing; it’s overthinking. So let me do that on paper. 
+
+Let’s get started on the characters in this story. It would be me, of course, and I assume you, whoever’s reading this, are part of this story. I mean, can I even call this thing a story? It feels more like a one-sided conversation/rant by an indecisive girl in her 20s who can’t make up her mind, for fuck’s sake. Sometimes, creating feels like hitting a brick wall, and right now, I am banging my head against that wall in a nice repetitive oscillatory motion. Yet, I can’t seem to get any ideas. Well, burnout’s a bitch. 
+
+As I type every sentence, “this is garbage,” my brain teases me. “A story about a story? That’s the dumbest, most unoriginal shit you could’ve picked.” It is getting pretty annoying in my head, just like this story now, but I guess I’m stuck with this meta crap. Why can’t I write something cute and simple? Like a heartwarming little story about two idiots in a coffee shop? My brain starts vomiting ideas - thrillers, ghosts, magic forests, futuristic cities yet I want to write this? Ahh, I’m screwing myself over, and I’m damn good at it. 
+
+It’s getting darker outside, and my laptop switched to ‘night mode.’ I see a faint reflection on my screen; she looks crazy. Like she hasn’t slept in forever. Then I think to myself, what if I write a story of her? Me? My life? Something that I’ve experienced and lived through? But wait, in the grand scheme of things, and with millions of people in the world, I still choose to talk about myself? How narcissistic! 
+
+What if I write about a magical world? I ask myself. What magical world can I even fantasize about and write a make-believe story, when the whole world feels like it is constantly burning, people face so much every day, struggle, and survive, while the greedy get greedier and the powerful get more powerful? I should probably write about something important. Something huge, something that has an impact. But what can be said that has not been said before? What can I write when I’m not sure what my voice is? 
+
+I’m terrible at getting my thoughts out of my head. I want to make something real, but I keep second-guessing every word. Nevertheless, I need to try. Try and try. To create. Something. Anything. But there’s always a limit. A time limit. Fuck. The universe is 13.8 billion years old with ginormous galaxies and black holes on a scale we can’t even imagine. Among all that, I’m nothing but a speck of dust. Stuck on a huge rock. Inside four walls that we built to contain ourselves. And the significance of my assignment? My stories? Microscopic. Whatevever I write, it won’t matter. We all perish, don’t we? Just fleeting blips in the cosmic static. 
+
+Well now, don’t I sound pretentiously deep? I am crumbling under the insignificance of my work and how much it doesn’t matter in the grand scheme of things, and yet, as I type this, it feels like the whole world is watching over my shoulder, judging my every clumsy phrase. It’s irrational, but it’s real, this pressure to be profound, to be heard, to be something. I chose this creative life to let my voice be heard, but right now it’s a jumbled mess, but I believe it won’t stay in the same place forever. Just like this {RED SOCK} on my lamp. Dear sock, you will get where you belong when it’s time. 
+
+And then, a shift. I think about you! The reader! Maybe you’re out there, feeling this too. The dread of creating, the fear that your work doesn’t matter, the exhaustion of trying to find your place in a world that’s too big and too broken. If you can feel this, even for a second, then we’re connected. We’re in this together. And that’s the point, isn’t it? Not to change the universe, but to reach one person, to make them feel less alone. 
+
+We can’t always do shit, and that’s okay. Sometimes, just showing up is enough. So, I keep writing. This story’s not perfect. It’s not groundbreaking. It’s just mine—raw, messy, honest. It’s a snapshot of a girl, overthinking her way through a blank page, trying to make sense of her place in the world. It’s a reminder that creating is hard, but it’s also human. We might just be specks in the universe, but our stories? They’re the sparks that light up the dark, even if just for a moment.`;
+
+        const display = document.getElementById('story-display');
+        const startBtn = document.getElementById('start-btn');
+        const skipBtn = document.getElementById('skip-btn');
+        const muteBtn = document.getElementById('mute-btn');
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        let i = 0;
+        let skip = false;
+        let muted = false;
+
+        function playThockSound() {
+            if (muted || audioCtx.state === 'suspended') return;
+            
+            const lowOsc = audioCtx.createOscillator();
+            const lowGain = audioCtx.createGain();
+            lowOsc.type = 'sine';
+            lowOsc.frequency.setValueAtTime(90 + Math.random() * 15, audioCtx.currentTime);
+            lowGain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+            lowGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+            lowOsc.connect(lowGain);
+            lowGain.connect(audioCtx.destination);
+            
+            const midOsc = audioCtx.createOscillator();
+            const midGain = audioCtx.createGain();
+            midOsc.type = 'triangle';
+            midOsc.frequency.setValueAtTime(350 + Math.random() * 50, audioCtx.currentTime);
+            midGain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+            midGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+            midOsc.connect(midGain);
+            midGain.connect(audioCtx.destination);
+
+            lowOsc.start(); midOsc.start();
+            lowOsc.stop(audioCtx.currentTime + 0.1);
+            midOsc.stop(audioCtx.currentTime + 0.1);
+        }
+
+        function renderStory(text, finished = false) {
+            let html = text.replace(/\{RED SOCK\}/g, `<span class="sock-highlight ${finished ? 'jitter' : ''}">red sock</span>`);
+            display.innerHTML = html;
+        }
+
+        function typeWriter() {
+            if (skip) return;
+            if (i < storyText.length) {
+                const currentChunk = storyText.substring(0, i + 1);
+                renderStory(currentChunk);
+                if (!" \n".includes(storyText[i])) playThockSound();
+
+                if (currentChunk.endsWith("blinding me")) {
+                    document.body.classList.add('blinding');
+                    setTimeout(() => document.body.classList.remove('blinding'), 1500);
+                }
+
+                i++;
+                let delay = Math.random() * 30 + 10;
+                if (".?!".includes(storyText[i-1])) delay = 600;
+                setTimeout(typeWriter, delay);
+            } else {
+                renderStory(storyText, true);
+                skipBtn.style.display = 'none';
+            }
+        }
+
+        startBtn.addEventListener('click', () => {
+            startBtn.style.display = 'none';
+            skipBtn.style.display = 'block';
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            typeWriter();
+        });
+
+        skipBtn.addEventListener('click', () => {
+            skip = true;
+            renderStory(storyText, true);
+            skipBtn.style.display = 'none';
+            document.body.classList.remove('blinding');
+        });
+
+        muteBtn.addEventListener('click', () => {
+            muted = !muted;
+            muteBtn.textContent = muted ? "Sound: Off" : "Sound: On";
+        });
+    </script>
+</body>
+</html>
